@@ -6,6 +6,9 @@ image:
 skip_branch_with_pr: true
 stack: python 3.11,
 
+platform:
+  - x64
+
 environment:
   GITHUB_TOKEN:
     secure: 0opxPJDxYM2CNHw/RVWThRvmUGr/pK6JAxVPh60uFxklz7OGHAD1GHbJh8r80Iot
