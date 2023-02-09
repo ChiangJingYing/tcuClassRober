@@ -1,6 +1,7 @@
 image:
 - macOS
 - Ubuntu
+- Visual Studio 2019
 
 skip_branch_with_pr: true
 stack: python 3.11,
@@ -62,3 +63,16 @@ for:
   artifacts:
   - path: counter-linux.tar.gz
 
+-
+  matrix:
+    only:
+    - image: Visual Studio 2019
+
+  build_script:
+  - flet pack flet_ui.py --name tcuClassRober --product-name counter --add-data "assets;assets"
+
+  after_build:
+  - 7z a counter-windows.zip %CD%\dist\*.exe
+
+  artifacts:
+  - path: counter-windows.zip
