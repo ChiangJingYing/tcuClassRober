@@ -7,7 +7,7 @@ stack: python 3.11,
 
 environment:
   GITHUB_TOKEN:
-    secure: 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
+    secure: 0opxPJDxYM2CNHw/RVWThRvmUGr/pK6JAxVPh60uFxklz7OGHAD1GHbJh8r80Iot
 
 install:
 - pip install -r requirements.txt
