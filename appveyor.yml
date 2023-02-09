@@ -1,5 +1,4 @@
 image:
-- Visual Studio 2019
 - macOS
 - Ubuntu
 
@@ -30,16 +29,6 @@ deploy:
 #   Windows package
 # 
 for:
--
-  matrix:
-    only:
-    - image: Visual Studio 2019
-
-  after_build:
-  - 7z a counter-windows.zip %CD%\tcuClassRober\*.exe
-
-  artifacts:
-  - path: counter-windows.zip
 
 #
 #   macOS package
