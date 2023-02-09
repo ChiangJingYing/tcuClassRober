@@ -27,7 +27,6 @@ deploy:
   description: "just test"
   on:
     branch: main
-    appveyor_repo_tag: true
   appveyor_repo_tag: true
 #
 #
