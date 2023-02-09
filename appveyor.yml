@@ -22,6 +22,7 @@ test: off
 deploy:
   provider: GitHub
   auth_token: $(GITHUB_TOKEN)
+  tag: $(APPVEYOR_REPO_TAG_NAME)
   on:
     APPVEYOR_REPO_TAG: true
 
@@ -63,7 +64,7 @@ for:
     - image: Ubuntu
 
   after_build:
-  - tar -czvf counter-linux.tar.gz -C disttcuClassRober 
+  - tar -czvf counter-linux.tar.gz -C dist tcuClassRober 
 
   artifacts:
   - path: counter-linux.tar.gz
