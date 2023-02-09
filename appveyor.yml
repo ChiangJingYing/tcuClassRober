@@ -27,6 +27,7 @@ deploy:
   description: "just test"
   on:
     branch: main
+    appveyor_repo_tag: true
     APPVEYOR_REPO_TAG: true
 #
 #   Windows package
