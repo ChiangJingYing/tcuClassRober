@@ -26,6 +26,8 @@ deploy:
   prerelease: false
   force_update: true
   on:
+    APPVEYOR_REPO_TAG_NAME: true
+    APPVEYOR_REPO_TAG_NAME: TRUE
     appveyor_repo_tag: true
 
 #
