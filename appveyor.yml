@@ -21,7 +21,6 @@ test: off
 deploy:
   provider: GitHub
   auth_token: $(GITHUB_TOKEN)
-  tag: $(APPVEYOR_REPO_TAG_NAME)
   draft: true
   prerelease: false
   force_update: true
