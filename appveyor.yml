@@ -24,10 +24,10 @@ deploy:
   draft: true
   prerelease: false
   force_update: true
+  description: "just test"
   on:
     branch: main
     APPVEYOR_REPO_TAG: true
-
 #
 #   Windows package
 # 
