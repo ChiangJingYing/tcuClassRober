@@ -29,7 +29,7 @@ def main(page: ft.Page):
         count_code = list()
         for k in user_input_list:
             if k.value:
-                count_code.append(k)
+                count_code.append(k.value)
         if user_input_student_number.value and user_input_password.value and count_code.__len__():
             robber = ClassRobber(studentNum=user_input_student_number.value,
                                  password=user_input_password.value,
@@ -55,7 +55,14 @@ def main(page: ft.Page):
             page.update()
 
     def handle_start_button_click(_):
-        if int(user_input_delay_time.value) <= 10:
+        if user_input_delay_time.value == '':
+            page.snack_bar = ft.SnackBar(
+                content=ft.Text(value='請輸入正確的冷卻時間')
+            )
+            page.snack_bar.open = True
+            page.update()
+
+        elif int(user_input_delay_time.value) <= 299:
             page.snack_bar = ft.SnackBar(
                 content=ft.Text(value='冷卻時間需大於299')
             )
