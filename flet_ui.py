@@ -1,5 +1,6 @@
 import flet as ft
 from threading import Timer
+from datetime import datetime
 from aha import ClassRobber
 
 
@@ -14,7 +15,7 @@ class Parameter():
         self.running = False
         self.timer = None
         self.page_windows_width = 300
-        self.page_windows_height = 350
+        self.page_windows_height = 550
         self.countDelay = 10
 
 
@@ -33,11 +34,17 @@ def main(page: ft.Page):
             robber = ClassRobber(studentNum=user_input_student_number.value,
                                  password=user_input_password.value,
                                  code=count_code)
-            print(robber.all())
+            now = datetime.now().strftime("%H:%M:%S\n")
+            system_output.value += now + robber.all()
         else:
             print('Please input correct user info.')
             if paramter.running:
                 handle_stop_button_click('just put it not mean what')
+            page.snack_bar = ft.SnackBar(
+                content=ft.Text('請輸入正確的學號密碼及課程代碼！')
+            )
+            page.snack_bar.open = True
+            page.update()
 
     def countDownTimes():
         if count_down_text.value == '0':
@@ -48,8 +55,12 @@ def main(page: ft.Page):
             page.update()
 
     def handle_start_button_click(_):
-        if int(user_input_delay_time.value) <= 300:
-            pass
+        if int(user_input_delay_time.value) <= 10:
+            page.snack_bar = ft.SnackBar(
+                content=ft.Text(value='冷卻時間需大於299')
+            )
+            page.snack_bar.open = True
+            page.update()
         elif paramter.timer is None or not paramter.running:
             paramter.countDelay = user_input_delay_time.value
             count_down_text.disabled = True
@@ -79,6 +90,8 @@ def main(page: ft.Page):
     user_input_delay_time = ft.TextField(
         label='冷卻時間', text_align='right', width=70, height=20, text_size=11
     )
+    system_output = ft.TextField(
+        multiline=True, height=200, value='')
     count_down_text = user_input_delay_time
     user_input_code1 = ft.TextField(
         label='代碼1', width=110, height=30, text_size=15,
@@ -128,6 +141,7 @@ def main(page: ft.Page):
         ft.ElevatedButton(text='停止', on_click=handle_stop_button_click,
                           width=page.window_width / 2 - 50)
     ]))
+    page.add(system_output)
 
 
 ft.app(target=main, assets_dir="assets")

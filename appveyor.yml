@@ -17,7 +17,7 @@ install:
 - pip install -r requirements.txt
 
 build_script:
-- flet pack flet_ui.py --name tcuClassRober --product-name counter --add-data "assets:assets"
+- flet pack flet_ui.py --name tcuClassRober --product-name tcuClassRober --add-data "assets:assets"
 
 test: off
 
@@ -28,7 +28,7 @@ deploy:
   draft: true
   prerelease: false
   force_update: true
-  description: "just test"
+  description: "此為測試版本，功能尚未完全"
   on:
     branch: main
   appveyor_repo_tag: true
@@ -47,10 +47,10 @@ for:
     - image: macOS
 
   after_build:
-  - tar -czvf counter-macos.tar.gz -C dist tcuClassRober.app
+  - tar -czvf tcuClassRober-macos.tar.gz -C dist tcuClassRober.app
 
   artifacts:
-  - path: counter-macos.tar.gz
+  - path: tcuClassRober-macos.tar.gz
 
 #
 #   Linux package
@@ -61,10 +61,10 @@ for:
     - image: Ubuntu
 
   after_build:
-  - tar -czvf counter-linux.tar.gz -C dist tcuClassRober 
+  - tar -czvf tcuClassRober-linux.tar.gz -C dist tcuClassRober 
 
   artifacts:
-  - path: counter-linux.tar.gz
+  - path: tcuClassRober-linux.tar.gz
 
 -
   matrix:
@@ -72,10 +72,10 @@ for:
     - image: Visual Studio 2019
 
   build_script:
-  - flet pack flet_ui.py --name tcuClassRober --product-name counter --add-data "assets;assets"
+  - flet pack flet_ui.py --name tcuClassRober --product-name tcuClassRober --add-data "assets;assets"
 
   after_build:
-  - 7z a counter-windows.zip %CD%\dist\*.exe
+  - 7z a tcuClassRober-windows.zip %CD%\dist\*.exe
 
   artifacts:
-  - path: counter-windows.zip
+  - path: tcuClassRober-windows.zip
