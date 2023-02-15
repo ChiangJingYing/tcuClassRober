@@ -11,7 +11,7 @@ platform:
 
 environment:
   GITHUB_TOKEN:
-    secure: 0opxPJDxYM2CNHw/RVWThRvmUGr/pK6JAxVPh60uFxklz7OGHAD1GHbJh8r80Iot
+    secure: bH1FnDt1qt/u4pifPDnTRKXeqDo4G2TqwTLLOjD7FU9F2YUaR8wMtn8rLuJCr74w
 
 install:
 - pip install -r requirements.txt
