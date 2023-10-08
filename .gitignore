@@ -2,10 +2,11 @@
 __pycache__/*
 build/*
 dist/*
+*/__pycache__
 
 .DS_Store
 .python-version
 flet_ui.spec
 tcuClassRober.iml
-
+assets/chromeDriver
 

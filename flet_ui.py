@@ -1,7 +1,7 @@
 import flet as ft
 from threading import Timer
 from datetime import datetime
-from aha import ClassRobber
+from main_process.aha import ClassRobber
 
 
 class Timers(Timer):

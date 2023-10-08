@@ -1,10 +1,13 @@
+from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from fake_useragent import UserAgent
 
+from enviornment_check.webdriver_path import Webdriver_Path
+
 import sys
-import os
+# import os
 import platform
 
 import pandas as pd
@@ -12,20 +15,19 @@ import pandas as pd
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
-    base_path = getattr(
-        sys, '_MEIPASS',
-        os.path.dirname(os.path.abspath(__file__)))
-    return os.path.join(base_path, relative_path)
+    base_path = getattr(sys, '_MEIPASS', Path(__file__).resolve().parent.parent)
+    return (base_path / relative_path).resolve()
 
 
 class ClassRobber:
     def __init__(self, studentNum: str, password: str, code):
         self._dirver_name = platform.system() + platform.machine().capitalize()
-        self._web_driver_path = resource_path(
-            'assets/chromeDriver/' + self._dirver_name)
-        self.root = os.path.dirname(os.path.realpath(__file__))
+        # self._web_driver_path = resource_path(
+        #     'assets/chromeDriver/' + self._dirver_name)
+        self._web_driver_path = Webdriver_Path().webdriver_path.as_posix()
+        # self.root = os.path.dirname(os.path.realpath(__file__))
         self.ua = UserAgent(use_external_data=True,
-                            cache_path=resource_path('assets/browsers.json'),
+                            cache_path=resource_path('assets/browsers.json').as_posix(),
                             browsers=['chrome'])
         self.user_agent = self.ua.random
 
