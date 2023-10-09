@@ -6,12 +6,14 @@ from json import load
 from zipfile import ZipFile
 
 from get_platform.Platform import Platform
+from get_resource_path.resource_path import resource_path
+
 
 def download_webdriver(chome_version: str):
     urls: dict
 
     # Find webdriver version urls
-    with open(Path.cwd().joinpath('enviornment_check/webdriver.json'), "r") as f:
+    with open(resource_path('assets/webdriver.json'), "r") as f:
         json = load(f)
         for version in json['versions']:
             if version['version'] == chome_version:
@@ -32,11 +34,11 @@ def download_webdriver(chome_version: str):
 
     # Download file
     req = requests.get(url)
-    with open(Path.cwd().joinpath(f'assets/chromeDriver/{platform}.zip'), 'wb') as f:
+    with open(resource_path(f'assets/chromeDriver/{platform}.zip'), 'wb') as f:
         f.write(req.content)
 
-    with ZipFile(Path.cwd().joinpath(f'assets/chromeDriver/{platform}.zip')) as f:
+    with ZipFile(resource_path(f'assets/chromeDriver/{platform}.zip')) as f:
         f.extract(f'chromedriver-{platform}/chromedriver',
-                  Path.cwd().joinpath(f'assets/chromeDriver'))
-        subprocess.call(['chmod', 'u+x', Path.cwd().joinpath(f'assets/chromeDriver')])
-    return Path.cwd().joinpath(f'assets/chromeDriver/chromedriver-{platform}/chromedriver').absolute()
+                  resource_path(f'assets/chromeDriver'))
+        subprocess.call(['chmod', 'u+x', resource_path(f'assets/chromeDriver')])
+    return resource_path(f'assets/chromeDriver/chromedriver-{platform}/chromedriver')
