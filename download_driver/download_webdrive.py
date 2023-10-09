@@ -20,8 +20,8 @@ def download_webdriver(chome_version: str):
     else:
         platform = platform.platform + platform.machine
 
-    url = f'https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{chome_version}/{platform}/chromedriver-{platform}.zip'
-
+    url = f'https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{".".join(chome_version.split(".")[:3])}.0/{platform}/chromedriver-{platform}.zip'
+    
     # Download file
     req = requests.get(url)
     with open(resource_path(f'assets/chromeDriver/{platform}.zip'), 'wb') as f:
