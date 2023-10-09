@@ -12,13 +12,6 @@ from get_resource_path.resource_path import resource_path
 def download_webdriver(chome_version: str):
     urls: dict
 
-    # Find webdriver version urls
-    with open(resource_path('assets/webdriver.json'), "r") as f:
-        json = load(f)
-        for version in json['versions']:
-            if version['version'] == chome_version:
-                urls = version['downloads']
-
     # Find webdriver download url
     #   Get platfom string
     platform = Platform()
@@ -27,10 +20,7 @@ def download_webdriver(chome_version: str):
     else:
         platform = platform.platform + platform.machine
 
-    #   Find download platform url
-    for platforms in urls['chromedriver']:
-        if platforms['platform'] == platform:
-            url = platforms['url']
+    url = f'https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{chome_version}/{platform}/chromedriver-{platform}.zip'
 
     # Download file
     req = requests.get(url)
@@ -40,5 +30,5 @@ def download_webdriver(chome_version: str):
     with ZipFile(resource_path(f'assets/chromeDriver/{platform}.zip')) as f:
         f.extract(f'chromedriver-{platform}/chromedriver',
                   resource_path(f'assets/chromeDriver'))
-        subprocess.call(['chmod', 'u+x', resource_path(f'assets/chromeDriver')])
+        subprocess.call(['chmod', 'u+x', resource_path(f'assets/chromeDriver/chromedriver-{platform}/chromedriver')])
     return resource_path(f'assets/chromeDriver/chromedriver-{platform}/chromedriver')
