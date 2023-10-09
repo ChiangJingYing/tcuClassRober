@@ -12,8 +12,8 @@ def get_chrome_version() -> (bool, str):
     if system_platform == "win":
         try:
             chrome_version = subprocess.check_output(
-                ['wmic', 'datafile', 'where', 'name="C:\\\\Program Files (x86)\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe"', 'get', 'Version']).decode('utf-8').strip()
-            return 1, chrome_version
+                ['wmic', 'datafile', 'where', 'name="C:\\\\Program Files\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe"', 'get', 'Version']).decode('utf-8').strip()
+            return 1, chrome_version.split()[1]
         except subprocess.CalledProcessError:
             return 0, "Chrome not found on Windows"
 
@@ -35,3 +35,6 @@ def get_chrome_version() -> (bool, str):
 
     else:
         return 0, "Unsupported operating system"
+
+tmp = 'Version   \r\r\n117.0.0.1212'
+print(tmp.split()[1])

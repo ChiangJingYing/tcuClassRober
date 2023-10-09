@@ -12,5 +12,5 @@ class Platform:
 
         if self.machine == 'x86-64' and self.platform == 'mac':
             self.machine = 'x64'
-        elif self.machine == 'x86-64' and self.platform == 'win':
+        elif self.machine == 'amd64' and self.platform == 'win':
             self.machine = '64'
