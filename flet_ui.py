@@ -75,7 +75,8 @@ def show_main_page(paramter: Parameter):
 
     def handle_stop_button_click(e):
         count_down_text.value = str(paramter.countDelay)
-        paramter.timer.cancel()
+        if paramter.timer is not None:
+            paramter.timer.cancel()
         paramter.running = False
         count_down_text.disabled = False
         e.page.update()
