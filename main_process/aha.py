@@ -2,32 +2,21 @@ from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.common.exceptions import WebDriverException
 from fake_useragent import UserAgent
 
 from enviornment_check.webdriver_path import Webdriver_Path
 from get_resource_path.resource_path import resource_path
 
-import sys
-# import os
 import platform
-
 import pandas as pd
-
-
-# def resource_path(relative_path):
-#     """ Get absolute path to resource, works for dev and for PyInstaller """
-#     base_path = getattr(sys, '_MEIPASS', Path(__file__).resolve().parent.parent.as_posix())
-#     return f'{base_path}/{relative_path}'
 
 
 class ClassRobber:
     def __init__(self, studentNum: str, password: str, code):
         print(resource_path('a/'))
         self._dirver_name = platform.system() + platform.machine().capitalize()
-        # self._web_driver_path = resource_path(
-        #     'assets/chromeDriver/' + self._dirver_name)
         self._web_driver_path = Webdriver_Path().webdriver_path
-        # self.root = os.path.dirname(os.path.realpath(__file__))
         self.ua = UserAgent(use_external_data=True,
                             cache_path=resource_path('assets/browsers.json'),
                             browsers=['chrome'])
@@ -40,8 +29,18 @@ class ClassRobber:
         self.webDriverOption.add_argument("--disable-notifications")
         self.webDriverService = Service(
             executable_path=self._web_driver_path)
-        self.chrome = webdriver.Chrome(
-            service=self.webDriverService, options=self.webDriverOption)
+        while True:
+            try:
+                self.chrome = webdriver.Chrome(
+                    service=self.webDriverService, options=self.webDriverOption)
+            except WebDriverException: 
+                tmp = Path(self._web_driver_path)
+                if tmp.exists():
+                    tmp.unlink()
+                    tmp.parent.rmdir()
+                    self._web_driver_path = Webdriver_Path().webdriver_path
+            else:
+                break
 
         self.studentNum = studentNum
         self.password = password
