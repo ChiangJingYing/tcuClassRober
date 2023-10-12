@@ -19,20 +19,23 @@ def download_webdriver(chome_version: str):
         platform_full = f'{platform.platform}-{platform.machine}'
     else:
         platform_full = platform.platform + platform.machine
+    
+    webDriver_path = resource_path(f'assets/chromeDriver/chromedriver-{platform_full}/chromedriver')
+    if not Path(webDriver_path).exists():
+        url = f'https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{".".join(chome_version.split(".")[:3])}.0/{platform_full}/chromedriver-{platform_full}.zip'
 
-    url = f'https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{".".join(chome_version.split(".")[:3])}.0/{platform_full}/chromedriver-{platform_full}.zip'
+        # Download file
+        req = requests.get(url)
+        with open(resource_path(f'assets/chromeDriver/{platform_full}.zip'), 'wb') as f:
+            f.write(req.content)
 
-    # Download file
-    req = requests.get(url)
-    with open(resource_path(f'assets/chromeDriver/{platform_full}.zip'), 'wb') as f:
-        f.write(req.content)
-
-    with ZipFile(resource_path(f'assets/chromeDriver/{platform_full}.zip')) as f:
-        if platform.platform == 'mac':
-            f.extract(f'chromedriver-{platform_full}/chromedriver',
-                    resource_path(f'assets/chromeDriver'))
-            subprocess.call(['chmod', 'u+x', resource_path(f'assets/chromeDriver/chromedriver-{platform_full}/chromedriver')])
-        elif platform.platform == 'win':
-            f.extract(f'chromedriver-{platform_full}/chromedriver.exe',
-                    resource_path(f'assets/chromeDriver'))
-    return resource_path(f'assets/chromeDriver/chromedriver-{platform_full}/chromedriver')
+        with ZipFile(resource_path(f'assets/chromeDriver/{platform_full}.zip')) as f:
+            if platform.platform == 'mac':
+                f.extract(f'chromedriver-{platform_full}/chromedriver',
+                        resource_path(f'assets/chromeDriver'))
+                subprocess.call(['chmod', 'u+x', webDriver_path])
+            elif platform.platform == 'win':
+                f.extract(f'chromedriver-{platform_full}/chromedriver.exe',
+                        resource_path(f'assets/chromeDriver'))
+        return webDriver_path
+    return webDriver_path
