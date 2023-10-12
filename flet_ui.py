@@ -80,6 +80,83 @@ def show_main_page(paramter: Parameter):
         count_down_text.disabled = False
         e.page.update()
 
+    user_input_student_number = ft.TextField(
+        width=220,
+        height=30,
+        content_padding=ft.padding.only(top=10, left=10),
+        text_size=15,
+        hint_text='113316187',
+        text_align='left',
+        bgcolor=ft.colors.BACKGROUND,
+        border_color=ft.colors.WHITE,
+        can_reveal_password=True
+    )
+    user_input_password = ft.TextField(
+        width=220,
+        height=30,
+        content_padding=ft.padding.only(top=10, left=10),
+        text_size=15,
+        hint_text='A123456789',
+        text_align='left',
+        bgcolor=ft.colors.BACKGROUND,
+        border_color=ft.colors.WHITE,
+        can_reveal_password=True,
+        password=True,
+    )
+    user_input_delay_time = ft.TextField(
+        label='冷卻時間',
+        width=80,
+        height=20,
+        text_size=11,
+        text_align='right',
+        label_style={'size': "13"}
+    )
+    system_output = ft.TextField(
+        height=200,
+        value='',
+        multiline=True,
+        read_only=True
+    )
+    count_down_text = user_input_delay_time
+    user_input_code1 = ft.TextField(
+        label='代碼1',
+        width=110,
+        height=30,
+        text_size=15,
+        bgcolor=ft.colors.BACKGROUND,
+        border_color=ft.colors.WHITE,
+        text_align='left'
+    )
+    user_input_code2 = ft.TextField(
+        label='代碼2',
+        width=110,
+        height=30,
+        text_size=15,
+        bgcolor=ft.colors.BACKGROUND,
+        border_color=ft.colors.WHITE,
+        text_align='left'
+    )
+    user_input_code3 = ft.TextField(
+        label='代碼3',
+        width=110,
+        height=30,
+        text_size=15,
+        bgcolor=ft.colors.BACKGROUND,
+        border_color=ft.colors.WHITE,
+        text_align='left'
+    )
+    user_input_code4 = ft.TextField(
+        label='代碼4',
+        width=110,
+        height=30,
+        text_size=15,
+        bgcolor=ft.colors.BACKGROUND,
+        border_color=ft.colors.WHITE,
+        text_align='left'
+    )
+    user_input_list = (user_input_code1, user_input_code2,
+                       user_input_code3, user_input_code4)
+    
     page = []
     page.append(
         ft.AppBar(
@@ -94,41 +171,6 @@ def show_main_page(paramter: Parameter):
             ]
         )
     )
-    user_input_student_number = ft.TextField(
-        hint_text='113316187', content_padding=ft.padding.only(top=10, left=10),
-        width=220, height=30, text_size=15,
-        bgcolor=ft.colors.BACKGROUND, border_color=ft.colors.WHITE,
-        text_align='left', can_reveal_password=True)
-    user_input_password = ft.TextField(
-        hint_text='A123456789', content_padding=ft.padding.only(top=10, left=10),
-        width=220, height=30, text_size=15,
-        bgcolor=ft.colors.BACKGROUND, border_color=ft.colors.WHITE,
-        text_align='left', password=True, can_reveal_password=True)
-    user_input_delay_time = ft.TextField(
-        label='冷卻時間', text_align='right', width=80, height=20, text_size=11, label_style={'size': "13"}
-    )
-    system_output = ft.TextField(
-        multiline=True, height=200, value='', read_only=True)
-    count_down_text = user_input_delay_time
-    user_input_code1 = ft.TextField(
-        label='代碼1', width=110, height=30, text_size=15,
-        bgcolor=ft.colors.BACKGROUND, border_color=ft.colors.WHITE,
-        text_align='left')
-    user_input_code2 = ft.TextField(
-        label='代碼2', width=110, height=30, text_size=15,
-        bgcolor=ft.colors.BACKGROUND, border_color=ft.colors.WHITE,
-        text_align='left')
-    user_input_code3 = ft.TextField(
-        label='代碼3', width=110, height=30, text_size=15,
-        bgcolor=ft.colors.BACKGROUND, border_color=ft.colors.WHITE,
-        text_align='left')
-    user_input_code4 = ft.TextField(
-        label='代碼4', width=110, height=30, text_size=15,
-        bgcolor=ft.colors.BACKGROUND, border_color=ft.colors.WHITE,
-        text_align='left')
-    user_input_list = (user_input_code1, user_input_code2,
-                       user_input_code3, user_input_code4)
-
     page.append(ft.Row([
         ft.Text(value='', width=200),
         count_down_text
