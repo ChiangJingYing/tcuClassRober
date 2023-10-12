@@ -18,6 +18,7 @@ class Parameter():
         self.page_windows_height = 550
         self.countDelay = 10
 
+
 def show_main_page(paramter: Parameter):
     def rob(**kwargs):
         e = kwargs.get('e')
@@ -67,7 +68,7 @@ def show_main_page(paramter: Parameter):
             paramter.countDelay = user_input_delay_time.value
             count_down_text.disabled = True
             e.page.update()
-            paramter.timer = Timers(1, countDownTimes,[],{'e': e})
+            paramter.timer = Timers(1, countDownTimes, [], {'e': e})
             paramter.timer.start()
             paramter.running = True
             rob()
@@ -80,6 +81,19 @@ def show_main_page(paramter: Parameter):
         e.page.update()
 
     page = []
+    page.append(
+        ft.AppBar(
+            title=ft.Text("Setting"),
+            bgcolor=ft.colors.SURFACE_VARIANT,
+            actions=[
+                ft.IconButton(
+                    icon=ft.icons.SETTINGS,
+                    width=paramter.page_windows_width / 2 - 50,
+                    on_click=lambda e: e.page.go('/setting'),
+                )
+            ]
+        )
+    )
     user_input_student_number = ft.TextField(
         hint_text='113316187', content_padding=ft.padding.only(top=10, left=10),
         width=220, height=30, text_size=15,
@@ -147,6 +161,20 @@ def show_main_page(paramter: Parameter):
     page.append(system_output)
     return page
 
+
+def show_setting_page():
+    page = []
+    page.append(
+        ft.AppBar(
+            leading=ft.IconButton(
+                icon=ft.icons.ARROW_BACK_IOS_SHARP, on_click=lambda e: e.page.go('/')),
+            title=ft.Text("Setting"),
+            bgcolor=ft.colors.SURFACE_VARIANT
+        )
+    )
+    return page
+
+
 def main(page: ft.Page):
     paramter = Parameter()
 
@@ -166,15 +194,19 @@ def main(page: ft.Page):
             page.views.append(
                 ft.View(
                     '/setting',
-                    [ft.Text("Setting")]
+                    [control for control in show_setting_page()]
                 )
             )
-        
+
         page.update()
-    
+
+    def view_pop(view):
+        page.views.pop()
+        top_view = page.views[-1]
+        page.go(top_view.route)
+    page.on_view_pop = view_pop
     page.on_route_change = on_route_change
     page.go('/')
-
 
 
 ft.app(target=main, assets_dir="assets")
