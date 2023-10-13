@@ -1,5 +1,6 @@
 import flet as ft
 from page.main_page import show_main_page
+from page.setting_page import show_setting_page
 
 
 class Parameter():
@@ -9,50 +10,6 @@ class Parameter():
         self.page_windows_width = 300
         self.page_windows_height = 550
         self.countDelay = 10
-
-
-def show_setting_page():
-    def pick_files_result(e: ft.FilePickerResultEvent):
-        picker_path.value += (
-            ", ".join(
-                map(lambda f: f.path, e.files)
-            ) if e.files else "Cancelled!"
-        )
-        picker_path.update()
-
-    picker_path = ft.TextField(
-        height=30,
-        text_size=14,
-        content_padding=ft.padding.symmetric(.0, 10.0),
-    )
-    file_picker = ft.FilePicker(
-        on_result=pick_files_result,
-    )
-    file_picker_button = ft.ElevatedButton(
-        "選取檔案",
-        icon=ft.icons.UPLOAD_FILE,
-        on_click=lambda _: file_picker.pick_files(
-            allow_multiple=False
-        ),
-    )
-
-    page = []
-    page.append(
-        ft.AppBar(
-            title=ft.Text(
-                "設定"
-            ),
-            actions=[
-                ft.IconButton(
-                    icon=ft.icons.KEYBOARD_BACKSPACE_SHARP,
-                    on_click=lambda e: e.page.go('/')
-                )
-            ],
-            toolbar_height=40,
-            bgcolor=ft.colors.SURFACE_VARIANT
-        )
-    )
-    return page
 
 
 def main(page: ft.Page):
