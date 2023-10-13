@@ -157,19 +157,19 @@ def show_main_page(paramter: Parameter):
     )
     user_input_list = (user_input_code1, user_input_code2,
                        user_input_code3, user_input_code4)
-    
+
     page = []
     page.append(
         ft.AppBar(
-            title=ft.Text("Setting"),
+            title=ft.Text("慈大搶課系統"),
             bgcolor=ft.colors.SURFACE_VARIANT,
             actions=[
                 ft.IconButton(
                     icon=ft.icons.SETTINGS,
-                    width=paramter.page_windows_width / 2 - 50,
                     on_click=lambda e: e.page.go('/setting'),
                 )
-            ]
+            ],
+            toolbar_height=41
         )
     )
     page.append(ft.Row([
@@ -209,9 +209,16 @@ def show_setting_page():
     page = []
     page.append(
         ft.AppBar(
-            leading=ft.IconButton(
-                icon=ft.icons.ARROW_BACK_IOS_SHARP, on_click=lambda e: e.page.go('/')),
-            title=ft.Text("Setting"),
+            title=ft.Text(
+                "設定"
+            ),
+            actions=[
+                ft.IconButton(
+                    icon=ft.icons.KEYBOARD_BACKSPACE_SHARP,
+                    on_click=lambda e: e.page.go('/')
+                )
+            ],
+            toolbar_height=40,
             bgcolor=ft.colors.SURFACE_VARIANT
         )
     )
