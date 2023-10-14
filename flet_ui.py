@@ -21,6 +21,7 @@ def main(page: ft.Page):
     def on_route_change(route):
         page.views.clear()
         if page.route == '/':
+            page.window_width = paramter.page_windows_width
             page.views.append(
                 ft.View(
                     '/',
@@ -28,6 +29,7 @@ def main(page: ft.Page):
                 )
             )
         elif page.route == '/setting':
+            page.window_width += 200
             page.views.append(
                 ft.View(
                     '/setting',
