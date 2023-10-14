@@ -14,12 +14,12 @@ import pandas as pd
 
 class ClassRobber:
     def __init__(self, studentNum: str, password: str, code):
-        print(resource_path('a/'))
-        self._dirver_name = platform.system() + platform.machine().capitalize()
         self._web_driver_path = Webdriver_Path().webdriver_path
-        self.ua = UserAgent(use_external_data=True,
-                            cache_path=resource_path('assets/browsers.json'),
-                            browsers=['chrome'])
+        self.ua = UserAgent(
+            use_external_data=True,
+            cache_path=resource_path('assets/browsers.json'),
+            browsers=['chrome']
+        )
         self.user_agent = self.ua.random
 
         self.webDriverOption = Options()
@@ -33,7 +33,7 @@ class ClassRobber:
             try:
                 self.chrome = webdriver.Chrome(
                     service=self.webDriverService, options=self.webDriverOption)
-            except WebDriverException: 
+            except WebDriverException:
                 tmp = Path(self._web_driver_path)
                 if tmp.exists():
                     tmp.unlink()
