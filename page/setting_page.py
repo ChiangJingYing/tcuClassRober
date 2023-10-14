@@ -3,12 +3,12 @@ import flet as ft
 
 def show_setting_page():
     def pick_files_result(e: ft.FilePickerResultEvent):
-        picker_path.value += (
+        picker_path.value = (
             ", ".join(
                 map(lambda f: f.path, e.files)
-            ) if e.files else "Cancelled!"
+            ) if e.files else e.page.client_storage.set("webDriver_path", e.control.value)
         )
-        picker_path.update()
+        picker_path.focus()
 
     def handle_path_textfield_change(e: ft.ControlEvent):
         e.page.client_storage.set("webDriver_path", e.control.value)
@@ -19,6 +19,7 @@ def show_setting_page():
         content_padding=ft.padding.symmetric(.0, 10.0),
 
         on_change=handle_path_textfield_change,
+        on_focus=handle_path_textfield_change
     )
     file_picker = ft.FilePicker(
         on_result=pick_files_result,

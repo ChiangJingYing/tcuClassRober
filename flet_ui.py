@@ -34,6 +34,7 @@ def main(page: ft.Page):
                     [control for control in show_setting_page()]
                 )
             )
+            page.views[0].controls[3].controls[0].value = page.client_storage.get('webDriver_path')
 
         page.update()
 
