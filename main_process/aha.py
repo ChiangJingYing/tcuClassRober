@@ -27,6 +27,7 @@ class ClassRobber:
         self.webDriverOption.add_argument("--incognito")
         self.webDriverOption.add_argument("--headless")
         self.webDriverOption.add_argument("--disable-notifications")
+        self.webDriverOption.add_argument(f"user-agent={self.user_agent}")
         self.webDriverService = Service(
             executable_path=self._web_driver_path)
         while True:
