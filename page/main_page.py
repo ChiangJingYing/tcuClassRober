@@ -3,6 +3,7 @@ from threading import Timer
 from datetime import datetime
 from main_process.aha import ClassRobber
 
+
 class Parameter():
     def __init__(self):
         self.running = False
@@ -11,10 +12,12 @@ class Parameter():
         self.page_windows_height = 550
         self.countDelay = 10
 
+
 class Timers(Timer):
     def run(self):
         while not self.finished.wait(self.interval):
             self.function(*self.args, **self.kwargs)
+
 
 def show_main_page(paramter: Parameter):
     def rob(**kwargs):
@@ -24,9 +27,11 @@ def show_main_page(paramter: Parameter):
             if k.value:
                 count_code.append(k.value)
         if user_input_student_number.value and user_input_password.value and count_code.__len__():
-            robber = ClassRobber(studentNum=user_input_student_number.value,
-                                 password=user_input_password.value,
-                                 code=count_code)
+            robber = ClassRobber(
+                studentNum=user_input_student_number.value,
+                password=user_input_password.value,
+                code=count_code
+            )
             now = datetime.now().strftime("%H:%M:%S\n")
             system_output.value += now + robber.all()
         else:
