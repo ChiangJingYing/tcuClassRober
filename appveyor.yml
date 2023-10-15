@@ -47,7 +47,7 @@ for:
     - image: macOS
 
   after_build:
-  - tar -czvf tcuClassRober-macos.tar.gz -C dist tcuClassRober.app
+  - tar -czvf tcuClassRober-macos.tar.gz -C dist tcuClassRober
 
   artifacts:
   - path: tcuClassRober-macos.tar.gz
