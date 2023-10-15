@@ -21,7 +21,7 @@ class Timers(Timer):
 
 def show_main_page(paramter: Parameter):
     def rob(**kwargs):
-        e = kwargs.get('e')
+        e: ft.Page = kwargs.get('e')
         count_code = list()
         for k in user_input_list:
             if k.value:
@@ -47,7 +47,7 @@ def show_main_page(paramter: Parameter):
 
     def countDownTimes(e):
         if count_down_text.value == '0':
-            rob(e)
+            rob(e=e)
             count_down_text.value = paramter.countDelay
         else:
             count_down_text.value = str(int(count_down_text.value) - 1)
@@ -74,7 +74,7 @@ def show_main_page(paramter: Parameter):
             paramter.timer = Timers(1, countDownTimes, [], {'e': e})
             paramter.timer.start()
             paramter.running = True
-            rob()
+            rob(e=e)
 
     def handle_stop_button_click(e):
         count_down_text.value = str(paramter.countDelay)
