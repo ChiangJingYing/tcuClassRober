@@ -8,13 +8,15 @@ from fake_useragent import UserAgent
 from enviornment_check.webdriver_path import Webdriver_Path
 from get_resource_path.resource_path import resource_path
 
-import platform
 import pandas as pd
 
 
 class ClassRobber:
-    def __init__(self, studentNum: str, password: str, code):
-        self._web_driver_path = Webdriver_Path().webdriver_path
+    def __init__(self, studentNum: str, password: str, code, executable_path: str):
+        if executable_path is not None and Path(executable_path).exists():
+            self._web_driver_path = executable_path
+        else:
+            self._web_driver_path = Webdriver_Path().webdriver_path
         self.ua = UserAgent(
             use_external_data=True,
             cache_path=resource_path('assets/browsers.json'),
@@ -26,7 +28,6 @@ class ClassRobber:
         self.webDriverOption.add_argument("--disable-notifications")
         self.webDriverOption.add_argument("--incognito")
         self.webDriverOption.add_argument("--headless")
-        self.webDriverOption.add_argument("--disable-notifications")
         self.webDriverOption.add_argument(f"user-agent={self.user_agent}")
         self.webDriverService = Service(
             executable_path=self._web_driver_path)

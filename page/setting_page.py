@@ -1,5 +1,8 @@
 import flet as ft
 
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
 
 def show_setting_page():
     def pick_files_result(e: ft.FilePickerResultEvent):
@@ -10,16 +13,36 @@ def show_setting_page():
         )
         picker_path.focus()
 
-    def handle_path_textfield_change(e: ft.ControlEvent):
-        e.page.client_storage.set("webDriver_path", e.control.value)
+    def handle_path_textfield_focus(e: ft.ControlEvent):
+        if e.control.value != e.page.client_storage.get("webDriver_path"):
+            try:
+                webDriverOption = Options()
+                webDriverOption.add_argument("--disable-notifications")
+                webDriverOption.add_argument("--incognito")
+                webDriverOption.add_argument("--headless")
+                webdriver.Chrome(
+                    executable_path=e.control.value, options=webDriverOption)
+            except AttributeError:
+                e.page.snack_bar = ft.SnackBar(
+                    content=ft.Text(value='請選擇正確的檔案')
+                )
+                e.page.snack_bar.open = True
+                picker_path.value = e.page.client_storage.get("webDriver_path")
+                e.page.update()
+            else:
+                e.page.snack_bar = ft.SnackBar(
+                    content=ft.Text(value='設定成功')
+                )
+                e.page.snack_bar.open = True
+                e.page.client_storage.set("webDriver_path", e.control.value)
+                e.page.update()
 
     picker_path = ft.TextField(
         height=30,
         text_size=14,
         content_padding=ft.padding.symmetric(.0, 10.0),
 
-        on_change=handle_path_textfield_change,
-        on_focus=handle_path_textfield_change
+        on_focus=handle_path_textfield_focus
     )
     file_picker = ft.FilePicker(
         on_result=pick_files_result,

@@ -30,7 +30,8 @@ def show_main_page(paramter: Parameter):
             robber = ClassRobber(
                 studentNum=user_input_student_number.value,
                 password=user_input_password.value,
-                code=count_code
+                code=count_code,
+                executable_path=e.page.client_storage.get('webDriver_path')
             )
             now = datetime.now().strftime("%H:%M:%S\n")
             system_output.value += now + robber.all()
