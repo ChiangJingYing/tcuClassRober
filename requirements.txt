@@ -16,7 +16,7 @@ outcome==1.2.0
 packaging==23.0
 pandas==1.5.2
 pycodestyle==2.10.0
-pyinstaller==5.7.0
+pyinstaller==5.13.1
 pyinstaller-hooks-contrib==2022.15
 PySocks==1.7.1
 python-dateutil==2.8.2
