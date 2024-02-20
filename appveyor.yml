@@ -4,7 +4,7 @@ image:
 - Visual Studio 2022
 
 skip_branch_with_pr: true
-stack: python 3.11.6,
+stack: python 3.11.7,
 
 platform:
   - x64
